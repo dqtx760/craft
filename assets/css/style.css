@@ -23,6 +23,11 @@ html {
   color: #F2EADC;
 }
 
+/* Offset for fixed header when scrolling to anchors */
+section[id] {
+  scroll-margin-top: 4rem;
+}
+
 /* Subtle film grain noise overlay */
 .noise-overlay {
   position: absolute;
