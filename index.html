@@ -72,7 +72,7 @@
     <section class="relative bg-dark text-cream overflow-hidden pt-[140px] pb-[100px] lg:pt-[180px] lg:pb-[140px]">
       <div class="noise-overlay" aria-hidden="true"></div>
       <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background-image:radial-gradient(ellipse at 20% 35%, rgba(188,155,106,0.08), transparent 55%)"></div>
-      <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-20 relative">
+      <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-20 relative z-10">
         <div class="flex items-center gap-4 font-mono text-[10px] tracking-[0.3em] uppercase text-cream/45 mb-16 lg:mb-24">
           <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
           <span>REEL 01 · SCENE 001</span>
@@ -129,8 +129,8 @@
           <div class="px-7 py-10 lg:px-9 lg:py-12 flex flex-col gap-4 group hover:bg-dark-card transition-colors duration-500 sm:border-l border-cream/10">
             <div class="font-mono text-[9px] tracking-[0.3em] uppercase text-gold">REEL 02</div>
             <div class="font-display font-normal text-[56px] lg:text-[64px] leading-none tracking-[-0.02em]">1<span class="italic text-gold text-[0.55em] align-top ml-1">万+</span></div>
-            <div class="text-[13px] font-light leading-relaxed text-cream/75">公众号读者</div>
-            <div class="font-mono text-[10px] tracking-[0.15em] uppercase text-cream/40 mt-1">大强同学</div>
+            <div class="text-[13px] font-light leading-relaxed text-cream/75">公众号</div>
+            <div class="font-mono text-[10px] tracking-[0.15em] uppercase text-cream/40 mt-1">公众号 · 大强同学</div>
           </div>
           <div class="px-7 py-10 lg:px-9 lg:py-12 flex flex-col gap-4 group hover:bg-dark-card transition-colors duration-500 lg:border-l border-cream/10">
             <div class="font-mono text-[9px] tracking-[0.3em] uppercase text-gold">REEL 03</div>
@@ -281,7 +281,7 @@
           </a>
         </div>
         <div class="mt-10 text-center">
-          <a href="https://www.dqtx.cc" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase text-gold hover:text-cream transition-colors group">
+          <a href="https://blog.dqtx.cc/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase text-gold hover:text-cream transition-colors group">
             查看更多文章
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -303,7 +303,7 @@
           <!-- Service 1 -->
           <div class="reveal bg-cream p-10 lg:p-14 flex flex-col gap-7 min-h-[380px]">
             <div class="font-mono text-[9px] tracking-[0.3em] uppercase text-gold-dark">01 · Service</div>
-            <h3 class="font-display font-normal text-[30px] lg:text-[40px] leading-[1.15] tracking-[-0.015em]">软件远程安装服务</h3>
+            <h3 class="font-display font-normal text-[30px] lg:text-[40px] leading-[1.15] tracking-[-0.015em]">IT远程技术支持</h3>
             <p class="text-[14px] lg:text-[15px] font-light leading-[1.8] text-brown-light flex-1">电脑优化、网站搭建、软件安装配置、网盘挂载、RustDesk 编译、Web3、OpenWrt 路由配置。各种疑难杂症，远程帮你搞定。</p>
             <div class="pt-6 border-t border-brown-text/20 flex items-end justify-between">
               <span class="font-display italic text-[18px] lg:text-[22px] text-gold-dark">50 元起</span>
@@ -417,6 +417,36 @@
       <span>Build in Public</span>
     </div>
   </footer>
+
+  <!-- Lightweight Content Protection -->
+  <script>
+    (() => {
+      const editableSelector = 'input, textarea, select, [contenteditable="true"]';
+      const isEditable = (target) => target instanceof Element && Boolean(target.closest(editableSelector));
+      const block = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      };
+
+      ['contextmenu', 'copy', 'cut', 'dragstart', 'selectstart'].forEach((eventName) => {
+        document.addEventListener(eventName, (event) => {
+          if (!isEditable(event.target)) block(event);
+        }, { capture: true });
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (isEditable(event.target)) return;
+
+        const key = event.key.toLowerCase();
+        const commandKey = event.ctrlKey || event.metaKey;
+        const blocked = event.key === 'F12'
+          || (commandKey && ['u', 's', 'p', 'a', 'c', 'x'].includes(key))
+          || (commandKey && event.shiftKey && ['i', 'j', 'c'].includes(key));
+
+        if (blocked) block(event);
+      }, { capture: true });
+    })();
+  </script>
 
   <!-- Mobile Menu Toggle Script -->
   <script>
