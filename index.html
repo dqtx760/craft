@@ -49,7 +49,16 @@
     <nav class="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-20 h-16 flex items-center justify-between">
       <a class="font-mono text-[12px] tracking-[0.25em] uppercase transition-colors duration-500 text-cream" href="#">Derek Zhao<span class="text-gold"> · </span>大强同学</a>
       <div class="hidden md:flex items-center gap-8 lg:gap-10">
-        <button data-lang-toggle class="font-mono text-[11px] tracking-[0.2em] uppercase transition-colors duration-300 text-cream/55 hover:text-cream border border-cream/25 hover:border-gold px-2.5 py-1 leading-none" aria-label="Switch language">中文</button>
+        <div class="relative" data-lang-switcher>
+          <button class="flex items-center gap-1 text-cream/55 hover:text-cream transition-colors duration-300" aria-label="Switch language" aria-haspopup="true" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+            <svg data-lang-chevron class="transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div data-lang-menu class="hidden absolute right-0 top-full mt-3 w-36 bg-cream rounded-lg shadow-xl border border-brown-text/10 py-1.5 z-50">
+            <button data-lang-option="en" class="block mx-1.5 px-3 py-2 text-left text-[13px] text-brown-text rounded-md hover:bg-brown-text/10 transition-colors">English</button>
+            <button data-lang-option="zh" class="block mx-1.5 px-3 py-2 text-left text-[13px] text-brown-text rounded-md hover:bg-brown-text/10 transition-colors">简体中文</button>
+          </div>
+        </div>
         <a class="font-mono text-[11px] tracking-[0.2em] uppercase transition-colors duration-300 text-cream/55 hover:text-cream" href="#works" data-zh="作品" data-en="Works">Works</a>
         <a class="font-mono text-[11px] tracking-[0.2em] uppercase transition-colors duration-300 text-cream/55 hover:text-cream" href="#blog" data-zh="博客" data-en="Blog">Blog</a>
         <a class="font-mono text-[11px] tracking-[0.2em] uppercase transition-colors duration-300 text-cream/55 hover:text-cream" href="#services" data-zh="服务" data-en="Services">Services</a>
@@ -61,7 +70,16 @@
     </nav>
     <div id="mobile-menu" class="hidden md:hidden bg-dark/95 backdrop-blur-sm border-t border-cream/10 px-6 py-6">
       <div class="flex flex-col gap-4">
-        <button data-lang-toggle class="self-start font-mono text-[11px] tracking-[0.2em] uppercase text-cream/55 hover:text-cream border border-cream/25 hover:border-gold px-2.5 py-1 leading-none" aria-label="Switch language">中文</button>
+        <div class="relative self-start" data-lang-switcher>
+          <button class="flex items-center gap-1 text-cream/55 hover:text-cream transition-colors duration-300" aria-label="Switch language" aria-haspopup="true" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+            <svg data-lang-chevron class="transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div data-lang-menu class="hidden absolute left-0 top-full mt-3 w-36 bg-cream rounded-lg shadow-xl border border-brown-text/10 py-1.5 z-50">
+            <button data-lang-option="en" class="block mx-1.5 px-3 py-2 text-left text-[13px] text-brown-text rounded-md hover:bg-brown-text/10 transition-colors">English</button>
+            <button data-lang-option="zh" class="block mx-1.5 px-3 py-2 text-left text-[13px] text-brown-text rounded-md hover:bg-brown-text/10 transition-colors">简体中文</button>
+          </div>
+        </div>
         <a class="font-mono text-[11px] tracking-[0.2em] uppercase text-cream/55 hover:text-cream" href="#works" data-zh="作品" data-en="Works">Works</a>
         <a class="font-mono text-[11px] tracking-[0.2em] uppercase text-cream/55 hover:text-cream" href="#blog" data-zh="博客" data-en="Blog">Blog</a>
         <a class="font-mono text-[11px] tracking-[0.2em] uppercase text-cream/55 hover:text-cream" href="#services" data-zh="服务" data-en="Services">Services</a>
@@ -478,7 +496,7 @@
         zh: '大强同学 Derek Zhao — Claude Code & Obsidian 工作流构建者',
         en: 'Derek Zhao — Claude Code & Obsidian Workflow Builder'
       };
-      const toggleBtns = document.querySelectorAll('[data-lang-toggle]');
+      const optionBtns = document.querySelectorAll('[data-lang-option]');
 
       const apply = (lang) => {
         document.documentElement.lang = lang;
@@ -491,18 +509,47 @@
           const value = lang === 'zh' ? el.dataset.ariaZh : el.dataset.ariaEn;
           if (value !== undefined) el.setAttribute('aria-label', value);
         });
-        toggleBtns.forEach((btn) => {
-          btn.textContent = lang === 'zh' ? 'EN' : '中文';
+        optionBtns.forEach((opt) => {
+          const active = opt.dataset.langOption === lang;
+          opt.classList.toggle('bg-brown-text/10', active);
+          opt.classList.toggle('font-medium', active);
         });
       };
 
-      toggleBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const next = document.documentElement.lang === 'zh' ? 'en' : 'zh';
-          localStorage.setItem(LANG_KEY, next);
-          apply(next);
+      const closeMenus = () => {
+        document.querySelectorAll('[data-lang-menu]').forEach((menu) => menu.classList.add('hidden'));
+        document.querySelectorAll('[data-lang-switcher] button[aria-haspopup]').forEach((btn) => {
+          btn.setAttribute('aria-expanded', 'false');
+          const chevron = btn.querySelector('[data-lang-chevron]');
+          if (chevron) chevron.style.transform = '';
+        });
+      };
+
+      document.querySelectorAll('[data-lang-switcher]').forEach((sw) => {
+        const btn = sw.querySelector('button[aria-haspopup]');
+        const menu = sw.querySelector('[data-lang-menu]');
+        btn.addEventListener('click', (event) => {
+          event.stopPropagation();
+          const wasOpen = !menu.classList.contains('hidden');
+          closeMenus();
+          if (!wasOpen) {
+            menu.classList.remove('hidden');
+            btn.setAttribute('aria-expanded', 'true');
+            const chevron = btn.querySelector('[data-lang-chevron]');
+            if (chevron) chevron.style.transform = 'rotate(180deg)';
+          }
         });
       });
+
+      optionBtns.forEach((opt) => {
+        opt.addEventListener('click', () => {
+          localStorage.setItem(LANG_KEY, opt.dataset.langOption);
+          apply(opt.dataset.langOption);
+          closeMenus();
+        });
+      });
+
+      document.addEventListener('click', closeMenus);
 
       apply(localStorage.getItem(LANG_KEY) || 'en');
     })();
